@@ -4,10 +4,12 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Post(models.Model):
-    STATUS_CHOICES=(
-        ('draft','Draft'),
-        ('published','Published'),
-    )
+    
+    class Status(models.TextChoices):
+        DRAFT='DF','Draft'
+        PUBLISHED='PB','Published'
+        
+    
     title=models.CharField(max_length=250)
     slug=models.SlugField(max_length=250)
     content=models.TextField()
@@ -15,7 +17,9 @@ class Post(models.Model):
     created=models.DateTimeField(auto_now_add=True)
     updated=models.DateTimeField(auto_now=True)
     publish=models.DateTimeField(default=timezone.now)
-    status=models.CharField(max_length=10,choices=STATUS_CHOICES,default='Draft')
+    status=models.CharField(max_length=10,
+                            choices=Status.choices,
+                            default=Status.DRAFT)
  
     
     
