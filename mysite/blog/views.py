@@ -8,7 +8,7 @@ from . models import  Post
 '''creating a view to display list of posts'''
 
 def post_list(request):
-    posts=Post.published.all()
+    posts = Post.objects.filter(status=Post.Status.PUBLISHED)
     return render(request,
                   'blog/post/list.html',
                  {'posts': posts} )
